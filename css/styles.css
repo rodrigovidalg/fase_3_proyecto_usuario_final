@@ -1,0 +1,132 @@
+:root {
+  --color-primario: #4f46e5; /* Indigo 600 */
+  --color-secundario: #e0e7ff; /* Indigo 100 */
+  --color-fondo: #f8fafc; /* Fondo claro */
+  --color-texto: #1e293b; /* Texto oscuro */
+  --color-boton: var(--color-primario);
+  --color-boton-hover: #4338ca;
+}
+
+[data-tema="oscuro"] {
+  --color-primario: #818cf8; /* Indigo 400 */
+  --color-secundario: #1e293b; /* Fondo oscuro */
+  --color-fondo: #0f172a;
+  --color-texto: #f1f5f9;
+  --color-boton: #6366f1;
+  --color-boton-hover: #4f46e5;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--color-primario);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-boton-hover);
+  text-decoration: underline;
+}
+
+.btn-primary {
+  background-color: var(--color-boton);
+  border-color: var(--color-boton);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-boton-hover);
+  border-color: var(--color-boton-hover);
+}
+
+.carrusel-container {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.carrusel-ofertas {
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 0 3rem; /* espacio para botones */
+}
+
+.carrusel-ofertas::-webkit-scrollbar {
+  display: none;
+}
+
+.carrusel-oferta-card {
+  min-width: 300px;
+  background-color: var(--color-secundario, #e0e7ff);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  flex-shrink: 0;
+  color: var(--color-texto, #1e293b);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.carrusel-oferta-card h5 {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.carrusel-oferta-card p {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.carrusel-oferta-card a {
+  align-self: flex-start;
+  font-weight: 600;
+  color: var(--color-primario, #4f46e5);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.carrusel-oferta-card a:hover {
+  border-color: var(--color-primario, #4f46e5);
+}
+
+.carrusel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  opacity: 0.8;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  background-color: var(--color-primario, #4f46e5);
+  color: white;
+  border: none;
+}
+
+.left-btn {
+  left: 0.5rem;
+}
+
+.right-btn {
+  right: 0.5rem;
+}
+
+.carrusel-btn:hover {
+  opacity: 1;
+  cursor: pointer;
+}
