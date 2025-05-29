@@ -8,6 +8,7 @@ import {
   orderBy,
   doc,
   getDoc,
+  Timestamp
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 import {
   getAuth,
@@ -50,7 +51,6 @@ if (btnCerrarSesion) {
   });
 }
 
-// --- Tu código de ofertas ---
 const listaOfertas = document.getElementById("lista-ofertas");
 const filtroSupermercado = document.getElementById("filtro-supermercado");
 const cacheSupermercados = {};
@@ -157,20 +157,24 @@ async function cargarTodasOfertas() {
   listaOfertas.innerHTML = "";
 
   try {
-    // Filtro
-    const filtroId = filtroSupermercado.value;
+    // Fecha de hoy a las 00:00
+    const hoy = new Date();
+    hoy.setHours(0,0,0,0);
+
     let q;
-    if (filtroId) {
+    if (filtroSupermercado.value) {
       q = query(
         collection(db, "ofertas"),
         where("activo", "==", true),
-        where("supermercadoId", "==", filtroId),
+        where("fechaFin", ">=", Timestamp.fromDate(hoy)),
+        where("supermercadoId", "==", filtroSupermercado.value),
         orderBy("titulo", "asc")
       );
     } else {
       q = query(
         collection(db, "ofertas"),
         where("activo", "==", true),
+        where("fechaFin", ">=", Timestamp.fromDate(hoy)),
         orderBy("titulo", "asc")
       );
     }
@@ -209,7 +213,7 @@ async function cargarTodasOfertas() {
           <div class="supermercado-nombre">Supermercado: ${nombreSupermercado}</div>
           <div class="supermercado-ubicacion">Ubicación: ${ubicacionSupermercado}</div>
           <div class="oferta-descripcion">${oferta.descripcion ? oferta.descripcion : "Sin descripción"}</div>
-          <p><strong>Válido del</strong> ${new Date(oferta.fechaInicio).toLocaleDateString()} <strong>al</strong> ${new Date(oferta.fechaFin).toLocaleDateString()}</p>
+          <p><strong>Válido del</strong> ${new Date(oferta.fechaInicio).toLocaleDateString()} <strong>al</strong> ${new Date(oferta.fechaFin.toDate ? oferta.fechaFin.toDate() : oferta.fechaFin).toLocaleDateString()}</p>
           ${renderizarProductos(oferta.productos)}
           <button class="btn btn-primary btn-sm btn-adquirir mt-2">Adquirir</button>
         </div>
